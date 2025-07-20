@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault of Codes - Empowering Digital Futures</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* CSS Variables for Light Mode (Default) */
+        :root {
+            /* Main Website Colors (Light Mode) */
+            --bg-primary: #ffffff; /* Main background white */
+            --bg-secondary: #f8f9fa; /* Slightly off-white for sections */
+            --bg-card: #e2e8f0; /* Light gray for cards/modals */
+            --text-primary: #2d3748; /* Dark gray text for main content */
+            --text-secondary: #4a5568; /* Medium gray text for secondary content */
+            --border-color: #cbd5e0; /* Light border */
+            --header-bg: rgba(255, 255, 255, 0.9); /* White header with transparency */
+            --shadow-color: rgba(0, 0, 0, 0.1); /* General shadow for light mode */
+
+            /* Fixed Red-Orange Accent Palette (Remains Constant Across Themes) */
+            --accent-color-primary: #ff4500; /* OrangeRed - main accent */
+            --accent-color-secondary: #e63900; /* Darker OrangeRed */
+            --accent-color-light: #ff7f50; /* Coral */
+            --accent-color-dark: #cc4d00; /* Even Darker Orange */
+
+            /* Button Colors based on accent */
+            --btn-primary-bg: var(--accent-color-primary);
+            --btn-primary-hover-bg: var(--accent-color-secondary);
+            --btn-primary-shadow: rgba(255, 69, 0, 0.4);
+            --btn-primary-text: #ffffff; /* White text on primary button */
+
+            --btn-secondary-text: var(--accent-color-primary);
+            --btn-secondary-hover-text: var(--accent-color-secondary);
+            --btn-secondary-shadow: rgba(255, 69, 0, 0.4);
+
+            /* Gradient for headings */
+            --gradient-from: var(--accent-color-light);
+            --gradient-to: var(--accent-color-primary);
+
+            /* Service Icon Backgrounds (using accent colors) */
+            --icon-bg-1: var(--accent-color-light); /* Coral */
+            --icon-bg-2: #ff6347; /* Tomato */
+            --icon-bg-3: #e65c00; /* Darker Orange */
+            --icon-bg-4: #cc4d00; /* Even Darker Orange */
+            --icon-bg-5: #b34200; /* Brownish Orange */
+            --icon-bg-6: #993600; /* Dark Brownish Orange */
+
+            /* Theme Toggle Button Icon Color (Always Red-Orange) */
+            --toggle-btn-icon-color: var(--accent-color-primary);
+
+            /* Input focus ring color */
+            --focus-ring-color: var(--accent-color-primary);
+
+            /* Neon Glow Color */
+            --neon-glow-color: #ff4500; /* OrangeRed for neon glow */
+            --neon-glow-shadow: 0 0 5px var(--neon-glow-color), 0 0 10px var(--neon-glow-color), 0 0 15px var(--neon-glow-color), 0 0 20px var(--neon-glow-color);
+        }
+
+        /* Dark Mode Overrides for the entire website */
+        body.dark-mode {
+            --bg-primary: #1a202c; /* Dark blue-gray */
+            --bg-secondary: #2d3748; /* Slightly lighter dark blue-gray */
+            --bg-card: #4a5568; /* Even lighter dark blue-gray for cards */
+            --text-primary: #e2e8f0; /* Light gray text */
+            --text-secondary: #cbd5e0; /* Off-white text */
+            --border-color: #718096; /* Medium gray border */
+            --header-bg: rgba(26, 32, 44, 0.9); /* Dark header with transparency */
+            --shadow-color: rgba(255, 255, 255, 0.1); /* Subtle white shadow for dark mode */
+
+            /* Red-Orange accent colors remain UNCHANGED here as per requirement */
+            /* --accent-color-primary: #ff4500; */
+            /* ... and so on for all accent-related vars */
+
+            /* Adjust secondary button text for better contrast in dark mode */
+            --btn-secondary-text: var(--accent-color-light);
+            --btn-secondary-hover-text: var(--accent-color-primary);
+
+            /* Neon Glow Color for Dark Mode (can be adjusted if needed, but keeping consistent) */
+            --neon-glow-color: #ff7f50; /* Slightly lighter coral for better visibility on dark */
+            --neon-glow-shadow: 0 0 5px var(--neon-glow-color), 0 0 10px var(--neon-glow-color), 0 0 15px var(--neon-glow-color), 0 0 20px var(--neon-glow-color);
+        }
+
+        /* Custom CSS for Inter font and smooth scrolling */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Hide scrollbar for a cleaner look, but still allow scrolling */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Custom styles for scroll-reveal animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom styling for button hover effects */
+        .btn-primary {
+            transition: all 0.3s ease;
+            background-color: var(--btn-primary-bg);
+            color: var(--btn-primary-text); /* Ensure button text color adapts */
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px var(--btn-primary-shadow);
+            background-color: var(--btn-primary-hover-bg);
+        }
+        .btn-secondary {
+            transition: all 0.3s ease;
+            color: var(--btn-secondary-text);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px var(--btn-secondary-shadow);
+            color: var(--btn-secondary-hover-text);
+        }
+
+        /* Ensure Lucide icons are rendered */
+        .lucide {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            line-height: 1;
+            vertical-align: -0.125em;
+        }
+
+        /* Specific styles for card hover effects */
+        .service-card, .portfolio-card, .testimonial-card {
+            padding: 2rem; /* Explicit uniform padding for all cards */
+            border-radius: 1rem; /* Explicit uniform rounded corners */
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, border-color 0.4s ease-out; /* Smoother transition for all cards */
+            border: 1px solid var(--border-color); /* Ensure a border is always present */
+            box-shadow: 0 5px 15px var(--shadow-color); /* Default shadow for cards */
+            display: block; /* Ensure the anchor behaves like a block element */
+            text-decoration: none; /* Remove underline from anchor */
+            color: inherit; /* Inherit text color from parent */
+        }
+        .service-card:hover, .portfolio-card:hover, .testimonial-card:hover {
+            transform: translateY(-10px) scale(1.02); /* Lift and slight scale */
+            box-shadow: 0 15px 30px var(--btn-primary-shadow); /* More prominent accent shadow */
+            border-color: var(--accent-color-primary); /* Highlight border */
+        }
+
+        /* Background colors for specific card types */
+        /* Note: The 'service-card' class itself now has the padding and border-radius */
+        .service-card {
+            background-color: var(--bg-card);
+        }
+        .portfolio-card {
+            background-color: var(--bg-secondary);
+        }
+        .testimonial-card {
+            background-color: var(--bg-card);
+        }
+
+
+        /* Custom alert/modal styling */
+        .custom-modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .custom-modal-content {
+            background-color: var(--bg-card);
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .custom-modal-close {
+            color: var(--text-secondary);
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .custom-modal-close:hover,
+        .custom-modal-close:focus {
+            color: var(--text-primary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Theme toggle button specific styles */
+        #theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px; /* Ensure good touch target size */
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--bg-card); /* Button background adapts to current theme's card background */
+            border: 1px solid var(--border-color); /* Button border adapts to current theme's border color */
+            color: var(--toggle-btn-icon-color); /* Icon color always red-orange */
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            margin-left: 1rem; /* Space from other nav items */
+            box-shadow: 0 0 15px var(--shadow-color); /* Button shadow adapts to current theme's shadow */
+        }
+        #theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--shadow-color); /* Enhanced hover shadow adapts */
+        }
+
+        /* Adjust header background for theme */
+        header {
+            background-color: var(--header-bg);
+            transition: background-color 0.3s ease;
+            color: var(--text-primary); /* Ensure nav links text color adapts */
+        }
+        header nav a {
+                color: var(--text-secondary); /* Default nav link color */
+        }
+        header nav a:hover {
+            color: var(--btn-secondary-text); /* Hover color for nav links */
+        }
+
+        /* Adjust section backgrounds for theme */
+        section {
+            background-color: var(--bg-secondary);
+            border-color: var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Adjust input/textarea backgrounds for theme */
+        input, textarea {
+            background-color: var(--bg-card);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--focus-ring-color);
+            box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.3); /* Red-orange focus ring */
+        }
+
+
+        /* Adjust footer background for theme */
+        footer {
+            background-color: var(--bg-secondary); /* Use bg-secondary for footer */
+            transition: background-color 0.3s ease;
+        }
+        /* Footer social icons styling */
+        footer a {
+            color: var(--text-secondary); /* Default color for footer links/icons */
+            transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease; /* Smooth transition for color, transform, and text-shadow */
+            display: inline-flex; /* To apply transform correctly */
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem; /* Add some padding for better hover area */
+            border-radius: 50%; /* Make hover area circular */
+        }
+
+        footer a:hover {
+            color: var(--neon-glow-color); /* Change to neon glow color on hover */
+            transform: translateY(-5px) scale(1.1); /* More pronounced lift and scale */
+            text-shadow: var(--neon-glow-shadow); /* Apply neon glow effect */
+        }
+
+        /* Service icon background colors (these are fixed to accent colors) */
+        .service-card .p-4.bg-cyan-600 { background-color: var(--icon-bg-1) !important; }
+        .service-card .p-4.bg-blue-600 { background-color: var(--icon-bg-2) !important; }
+        .service-card .p-4.bg-purple-600 { background-color: var(--icon-bg-3) !important; }
+        .service-card .p-4.bg-green-600 { background-color: var(--icon-bg-4) !important; }
+        .service-card .p-4.bg-yellow-600 { background-color: var(--icon-bg-5) !important; }
+        .service-card .p-4.bg-red-600 { background-color: var(--icon-bg-6) !important; }
+
+        /* Hero section gradient text (fixed to accent colors) */
+        .hero-gradient-text {
+            background-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to));
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Custom Modal Structure -->
+    <div id="customModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="custom-modal-close">&times;</span>
+            <p id="modalMessage" class="text-lg font-medium"></p>
+            <button onclick="closeModal()" class="mt-6 px-6 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all duration-300"
+                    style="background-color: var(--btn-primary-bg); color: var(--btn-primary-text); hover:background-color: var(--btn-primary-hover-bg); focus:ring-color: var(--btn-primary-bg); focus:ring-opacity: 50%;">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="fixed w-full z-50 shadow-lg rounded-b-xl">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="rounded-lg p-2 hover:scale-105 transition-transform duration-300 flex items-center">
+                <img src="https://diy-assets.classplus.co/_next/image?url=https://ali-cdn-diy-public.classplus.co/prod/Screenshot%202023-07-03%20195329_1699366388489.png&w=1920&q=75" alt="Vault of Codes Logo" class="h-10 w-auto">
+            </a>
+            <div class="flex items-center">
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-lg font-medium transition-colors duration-300 rounded-md p-2">About</a>
+                    <a href="#services" class="text-lg font-medium transition-colors duration-300 rounded-md p-2">Services</a>
+                    <a href="#portfolio" class="text-lg font-medium transition-colors duration-300 rounded-md p-2">Portfolio</a>
+                    <a href="#contact" class="text-lg font-medium transition-colors duration-300 rounded-md p-2">Contact</a>
+                </div>
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" aria-label="Toggle theme">
+                    <i data-lucide="sun" id="theme-icon"></i>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden focus:outline-none ml-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden bg-opacity-95 backdrop-blur-sm py-4 rounded-b-xl">
+            <a href="#about" class="block text-xl font-medium py-3 px-6 text-center transition-colors duration-300" onclick="toggleMobileMenu()">About</a>
+            <a href="#services" class="block text-xl font-medium py-3 px-6 text-center transition-colors duration-300" onclick="toggleMobileMenu()">Services</a>
+            <a href="#portfolio" class="block text-xl font-medium py-3 px-6 text-center transition-colors duration-300" onclick="toggleMobileMenu()">Portfolio</a>
+            <a href="#contact" class="block text-xl font-medium py-3 px-6 text-center transition-colors duration-300" onclick="toggleMobileMenu()">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative h-screen flex items-center justify-center bg-cover bg-center text-center rounded-b-3xl overflow-hidden"
+            style="background-image: url('https://i.pinimg.com/originals/a5/19/91/a519916d822d1ea18815bd29db5ee120.png');">
+            <div class="absolute inset-0 bg-black opacity-70"></div>
+            <div class="relative z-10 p-6 max-w-4xl mx-auto scroll-reveal">
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 text-transparent bg-clip-text hero-gradient-text drop-shadow-lg">
+                    Empowering Your Digital Future
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
+                    Unlock the full potential of your ideas with cutting-edge code and innovative solutions.
+                </p>
+                <a href="#contact" class="btn-primary px-10 py-4 text-xl font-semibold rounded-full shadow-lg focus:outline-none focus:ring-4 focus:ring-opacity-50">
+                    Get a Free Consultation
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 rounded-xl m-8 shadow-xl scroll-reveal">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-12 text-transparent bg-clip-text hero-gradient-text">About Vault of Codes</h2>
+                <div class="max-w-3xl mx-auto text-lg leading-relaxed" style="color: var(--text-secondary);">
+                    <p class="mb-6">
+                        At Vault of Codes, we are passionate about crafting robust, scalable, and elegant software solutions. With a team of dedicated experts, we transform complex challenges into seamless digital experiences. Our mission is to empower businesses and individuals by providing top-tier development services that drive innovation and growth.
+                    </p>
+                    <p>
+                        From intricate web applications to powerful mobile solutions and secure backend systems, we are committed to delivering excellence in every line of code. We believe in transparent communication, agile methodologies, and a client-centric approach to ensure your vision becomes a reality.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 rounded-xl m-8 shadow-xl scroll-reveal">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-12 text-transparent bg-clip-text hero-gradient-text">Our Services</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                    <!-- Service Card 1 -->
+                    <a href="https://xnigwq.on-app.in/app/oc/506813/xnigwq?utm_source=copy-link&utm_medium=student-course-referral&utm_campaign=course-overview" target="_blank" rel="noopener noreferrer" class="service-card rounded-2xl shadow-lg flex flex-col items-center text-center">
+                        <div class="p-4 bg-cyan-600 rounded-full mb-6">
+                            <i data-lucide="laptop-2" class="lucide w-12 h-12 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--text-primary);">Web Development</h3>
+                        <p style="color: var(--text-secondary);">Building responsive, high-performance web applications using modern frameworks like React, Angular, and Vue.js.</p>
+                    </a>
+
+                    <!-- Service Card 2 -->
+                    <a href="https://xnigwq.on-app.in/app/oc/649395/xnigwq?utm_source=copy-link&utm_medium=student-course-referral&utm_campaign=course-overview" target="_blank" rel="noopener noreferrer" class="service-card rounded-2xl shadow-lg flex flex-col items-center text-center">
+                        <div class="p-4 bg-blue-600 rounded-full mb-6">
+                            <i data-lucide="smartphone" class="lucide w-12 h-12 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--text-primary);">Mobile App Development</h3>
+                        <p style="color: var(--text-secondary);">Crafting intuitive and powerful mobile apps for iOS and Android platforms, ensuring seamless user experiences.</p>
+                    </a>
+                    <!-- Service Card 3 -->
+                    <a href="https://xnigwq.on-app.in/app/oc/583448/xnigwq?utm_source=copy-link&utm_medium=student-course-referral&utm_campaign=course-overview" target="_blank" rel="noopener noreferrer" class="service-card rounded-2xl shadow-lg flex flex-col items-center text-center">
+                        <div class="p-4 bg-purple-600 rounded-full mb-6">
+                            <i data-lucide="cloud" class="lucide w-12 h-12 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--text-primary);">Cloud Solutions & DevOps</h3>
+                        <p style="color: var(--text-secondary);">Designing and implementing robust cloud infrastructures and automating deployment pipelines for efficiency.</p>
+                    </a>
+                    <!-- Service Card 4 -->
+                    <a href="https://xnigwq.on-app.in/app/oc/649395/xnigwq?utm_source=copy-link&utm_medium=student-course-referral&utm_campaign=course-overview" target="_blank" rel="noopener noreferrer" class="service-card rounded-2xl shadow-lg flex flex-col items-center text-center">
+                        <div class="p-4 bg-green-600 rounded-full mb-6">
+                            <i data-lucide="database" class="lucide w-12 h-12 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--text-primary);">Backend Development</h3>
+                        <p style="color: var(--text-secondary);">Developing secure, scalable, and efficient server-side logic and database management systems.</p>
+                    </a>
+                    <!-- Service Card 5 -->
+                    <a href="https://xnigwq.on-app.in/app/oc/506806/xnigwq?utm_source=copy-link&utm_medium=student-course-referral&utm_campaign=course-overview" target="_blank" rel="noopener noreferrer" class="service-card rounded-2xl shadow-lg flex flex-col items-center text-center">
+                        <div class="p-4 bg-yellow-600 rounded-full mb-6">
+                            <i data-lucide="shield-check" class="lucide w-12 h-12 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--text-primary);">Code Audits & Optimization</h3>
+                        <p style="color: var(--text-secondary);">Analyzing existing codebases for performance bottlenecks, security vulnerabilities, and best practice adherence.</p>
+                    </a>
+                    <!-- Service Card 6 -->
+                    <a href="https://xnigwq.on-app.in/app/oc/520672/xnigwq?utm_source=copy-link&utm_medium=student-course-referral&utm_campaign=course-overview" target="_blank" rel="noopener noreferrer" class="service-card rounded-2xl shadow-lg flex flex-col items-center text-center">
+                        <div class="p-4 bg-red-600 rounded-full mb-6">
+                            <i data-lucide="lightbulb" class="lucide w-12 h-12 text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-semibold mb-4" style="color: var(--text-primary);">Technical Consulting</h3>
+                        <p style="color: var(--text-secondary);">Providing expert guidance and strategic insights to help you make informed technology decisions.</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="py-20 rounded-xl m-8 shadow-xl scroll-reveal">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-12 text-transparent bg-clip-text hero-gradient-text">Some Recent Work</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                    <!-- Project Card 1: Weather Dashboard -->
+                    <div class="portfolio-card rounded-2xl shadow-lg overflow-hidden">
+                        <img src="https://vuejsexamples.com/content/images/2019/12/The-Weather-Dashboard.jpg" alt="weather dashboard illustration" class="w-full h-48 object-cover rounded-t-xl">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-3" style="color: var(--text-primary);">Weather Dashboard</h3>
+                            <p class="mb-4" style="color: var(--text-secondary);">Interactive weather dashboard displaying real-time temperature, humidity, wind speed, and forecasts.</p>
+                            <a href="https://colab.research.google.com/drive/1RdMNbVOiFffjsGECDdQzpiIQl9UTn9x1?usp=drive_link" target="_blank" class="btn-secondary font-medium inline-flex items-center group">
+                                View Details
+                                <i data-lucide="arrow-right" class="lucide w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2: My Portfolio -->
+                    <div class="portfolio-card rounded-2xl shadow-lg overflow-hidden">
+                        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c51ae488098817.5dcd20477ecb3.gif" alt="My portfolio illustration" class="w-full h-48 object-cover rounded-t-xl">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-3" style="color: var(--text-primary);">My Portfolio Website</h3>
+                            <p class="mb-4" style="color: var(--text-secondary);">Personal portfolio website showcasing projects, skills, and contact details with responsive, modern design.</p>
+                            <a href="https://rawcdn.githack.com/AsuRanjan/Assignment-1-VaultofCodes/192c5aa726c8096db02dad3c494828a23c72f411/CSS-HTML%20assign1%20vaultofcodes.html" target="_blank" rel="noopener noreferrer" class="btn-secondary font-medium inline-flex items-center group">
+                                View Details
+                                <i data-lucide="arrow-right" class="lucide w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3: Internship programs -->
+                    <div class="portfolio-card rounded-2xl shadow-lg overflow-hidden">
+                        <img src="https://thumbs.dreamstime.com/b/internship-word-cloud-concept-grey-background-90730727.jpg" alt="Internship programs illustration" class="w-full h-48 object-cover rounded-t-xl">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-3" style="color: var(--text-primary);">Internship Programs</h3>
+                            <p class="mb-4" style="color: var(--text-secondary);">Internship program website displaying opportunities of different programs, benefits with responsive design.</p>
+                            <a href="https://rawcdn.githack.com/AsuRanjan/Assignment-2-VaultofCodes/10c0810e0be4a7d5cc8ee662bfb369b99aa29040/InternshipPage%20week2.html" target="_blank" rel="noopener noreferrer" class="btn-secondary font-medium inline-flex items-center group">
+                                View Details
+                                <i data-lucide="arrow-right" class="lucide w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 rounded-xl m-8 shadow-xl scroll-reveal">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-12 text-transparent bg-clip-text hero-gradient-text">What Our Clients Say</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card p-8 rounded-2xl shadow-lg border">
+                        <p class="text-lg italic mb-6" style="color: var(--text-secondary);">
+                            "Vault of Codes delivered an outstanding web application that exceeded our expectations. Their team was professional, highly skilled, and a pleasure to work with from start to finish."
+                        </p>
+                        <div class="flex items-center justify-center">
+                            <img src="https://placehold.co/60x60/4a5568/cbd5e0?text=JD" alt="Client Avatar" class="w-16 h-16 rounded-full mr-4 border-2 border-cyan-500">
+                            <div>
+                                <p class="font-semibold text-xl" style="color: var(--text-primary);">Jane Doe</p>
+                                <p class="text-sm" style="color: var(--text-secondary);">CEO, Tech Innovations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card p-8 rounded-2xl shadow-lg border">
+                        <p class="text-lg italic mb-6" style="color: var(--text-secondary);">
+                            "The mobile app developed by Vault of Codes has transformed our business. It's incredibly user-friendly and robust. Their attention to detail and commitment to quality is truly remarkable."
+                        </p>
+                        <div class="flex items-center justify-center">
+                            <img src="https://placehold.co/60x60/4a5568/cbd5e0?text=AS" alt="Client Avatar" class="w-16 h-16 rounded-full mr-4 border-2 border-cyan-500">
+                            <div>
+                                <p class="font-semibold text-xl" style="color: var(--text-primary);">Alex Smith</p>
+                                <p class="text-sm" style="color: var(--text-secondary);">Founder, Fitness First</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 rounded-xl m-8 shadow-xl scroll-reveal">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-12 text-transparent bg-clip-text hero-gradient-text">Get in Touch</h2>
+                <div class="max-w-xl mx-auto p-8 rounded-2xl shadow-lg border" style="background-color: var(--bg-secondary); border-color: var(--border-color);">
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-left text-lg font-medium mb-2" style="color: var(--text-secondary);">Name</label>
+                            <input type="text" id="name" name="name" required
+                                class="w-full p-4 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-left text-lg font-medium mb-2" style="color: var(--text-secondary);">Email</label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full p-4 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-left text-lg font-medium mb-2" style="color: var(--text-secondary);">Message</label>
+                            <textarea id="message" name="message" rows="6" required
+                                class="w-full p-4 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full px-8 py-4 text-xl font-semibold rounded-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-opacity-50">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                <div class="mt-12 text-lg" style="color: var(--text-secondary);">
+                    <p class="mb-2"><i data-lucide="mail" class="lucide inline-block mr-2"></i> info@vaultofcodes.com</p>
+                    <p class="mb-2"><i data-lucide="phone" class="lucide inline-block mr-2"></i> +1 (123) 456-7890</p>
+                    <p><i data-lucide="map-pin" class="lucide inline-block mr-2"></i> 123 Code Avenue, Silicon Valley, CA 90210</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-10 rounded-t-xl mt-8 shadow-inner">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-4">&copy; 2025 Vault of Codes. All rights reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.linkedin.com/company/vaultofcodes" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="linkedin" class="lucide w-6 h-6"></i>
+                </a>
+                <a href="https://github.com/vaultofcodes" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="github" class="lucide w-6 h-6"></i>
+                </a>
+                <a href="https://twitter.com/vaultofcodes" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="twitter" class="lucide w-6 h-6"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Function to display custom modal messages
+        function showModal(message) {
+            const modal = document.getElementById('customModal');
+            const modalMessage = document.getElementById('modalMessage');
+            modalMessage.textContent = message;
+            modal.style.display = 'flex'; // Use flex to center content
+        }
+
+        // Function to close custom modal
+        function closeModal() {
+            const modal = document.getElementById('customModal');
+            modal.style.display = 'none';
+        }
+
+        // Event listener for closing modal via close button
+        document.querySelector('.custom-modal-close').addEventListener('click', closeModal);
+
+        // Event listener for closing modal via clicking outside content
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('customModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+        // Scroll-reveal animation logic
+        const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: Unobserve after animation to prevent re-triggering
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1, // Trigger when 10% of the element is visible
+            rootMargin: '0px 0px -50px 0px' // Adjust when element enters viewport
+        });
+
+        scrollRevealElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Contact Form Submission (Client-side validation and dummy submission)
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !message) {
+                showModal('Please fill in all fields.');
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showModal('Please enter a valid email address.');
+                return;
+            }
+
+            // Simulate form submission
+            console.log('Form Submitted:', { name, email, message });
+            showModal('Thank you for your message! We will get back to you soon.');
+
+            // Clear the form
+            contactForm.reset();
+        });
+
+        // Theme Toggle Logic (for the entire website)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        // Function to set the website's theme (light/dark)
+        function setWebsiteTheme(isDarkMode) {
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                themeIcon.setAttribute('data-lucide', 'moon'); // Show moon icon for dark mode
+                localStorage.setItem('websiteTheme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeIcon.setAttribute('data-lucide', 'sun'); // Show sun icon for light mode
+                localStorage.setItem('websiteTheme', 'light');
+            }
+            // Re-create icons to ensure the new icon is rendered
+            lucide.createIcons();
+        }
+
+        // Check for saved website theme preference on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedWebsiteTheme = localStorage.getItem('websiteTheme');
+            if (savedWebsiteTheme === 'dark') {
+                setWebsiteTheme(true);
+            } else {
+                setWebsiteTheme(false); // Default to light mode for the website
+            }
+        });
+
+        // Toggle website theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            setWebsiteTheme(!isDarkMode);
+        });
+
+        // Ensure Lucide icons are re-rendered if content changes dynamically (not strictly needed here but good practice)
+        window.addEventListener('load', () => {
+            lucide.createIcons();
+        });
+
+    </script>
+</body>
+</html>
